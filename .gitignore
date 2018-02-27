@@ -37,13 +37,7 @@ ehthumbs.db
 Thumbs.db
 
 *.pyc
-/node_modules/*
-node_modules
 *.swp
-*/.idea/*
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/dictionaries
-*/dist/*
+node_modules
 dist
 .idea
