@@ -1,0 +1,1 @@
+{"version":3,"sources":["../game.js"],"names":[],"mappings":";;AAAA;;AAEA","file":"game.js","sourcesContent":["import {Main} from \"./Main.js\";\n\nnew Main();"]}
