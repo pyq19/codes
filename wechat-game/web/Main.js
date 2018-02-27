@@ -3,6 +3,7 @@ import {BackGround} from "./js/runtime/BackGround.js";
 import {DataStore} from "./js/base/DataStore.js";
 import {Director} from "./js/Director.js";
 import {Land} from "./js/runtime/Land.js";
+import {Birds} from "./js/player/Birds.js";
 
 export class Main {
 
@@ -41,10 +42,15 @@ export class Main {
     }
 
     init() {
+
+        // 先重置游戏是没有结束的
+        this.director.isGameOver = false;
+
         this.dataStore
             .put('pencils', [])
             .put('background', BackGround)
-            .put('land', Land);
+            .put('land', Land)
+            .put('birds', Birds)
         // 创建铅笔要在游戏逻辑运行之前
         this.director.createPencil();
         this.director.run();

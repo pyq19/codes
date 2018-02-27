@@ -29,30 +29,38 @@ export class Director {
     }
 
     run() {
-        this.dataStore.get('background').draw();
+        if (!this.isGameOver) {
+            this.dataStore.get('background').draw();
 
-        const pencils = this.dataStore.get('pencils');
+            const pencils = this.dataStore.get('pencils');
 
-        // 销毁越界铅笔
-        // 如果铅笔位置+宽度超越左边边界
-        if (pencils[0].x + pencils[0].width <= 0 && pencils.length === 4) {
-            pencils.shift(); // 第一个元素推出数组并把个数减一
-            pencils.shift();
+            // 销毁越界铅笔
+            // 如果铅笔位置+宽度超越左边边界
+            if (pencils[0].x + pencils[0].width <= 0 && pencils.length === 4) {
+                pencils.shift(); // 第一个元素推出数组并把个数减一
+                pencils.shift();
+            }
+
+            // 超过一半屏幕时创建新一组铅笔
+            if (pencils[0].x <= (window.innerWidth - pencils[0].width) / 2 && pencils.length === 2) {
+                this.createPencil();
+            }
+
+            this.dataStore.get('pencils').forEach(function (value) {
+                value.draw();
+            });
+
+            this.dataStore.get('land').draw();
+            this.dataStore.get('birds').draw();
+
+            let timer = requestAnimationFrame(() => this.run());
+            this.dataStore.put('timer', timer);
+            // cancelAnimationFrame(this.dataStore.get('timer'));
         }
-
-        // 超过一半屏幕时创建新一组铅笔
-        if (pencils[0].x <= (window.innerWidth - pencils[0].width) / 2 && pencils.length === 2) {
-            this.createPencil();
+        else {
+            cancelAnimationFrame(this.dataStore.get('timer'));
+            this.dataStore.destroy();
+            console.log('game over');
         }
-
-        this.dataStore.get('pencils').forEach(function (value) {
-            value.draw();
-        });
-
-        this.dataStore.get('land').draw();
-
-        let timer = requestAnimationFrame(() => this.run());
-        this.dataStore.put('timer', timer);
-        // cancelAnimationFrame(this.dataStore.get('timer'));
     }
 }
