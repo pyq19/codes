@@ -40,7 +40,10 @@ Thumbs.db
 /node_modules/*
 node_modules
 *.swp
-.idea
+*/.idea/*
 .idea/workspace.xml
 .idea/tasks.xml
 .idea/dictionaries
+*/dist/*
+dist
+.idea
