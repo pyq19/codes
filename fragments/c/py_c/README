@@ -1,0 +1,24 @@
+https://www.zhihu.com/question/23003213
+
+gcc -fPIC -shared great_module.c -o great_module.so -I/usr/include/python2.7/ -lpython2.7
+
+
+>>> from great_module import great_function
+>>> great_function(2)
+3L
+
+
+https://gist.github.com/Artanis/1223762
+gcc -fPIC -shared greetmodule.c -o greetmodule.so -I/usr/include/python2.7/ -lpython2.7
+>>> import greet
+>>> greet.greet('WORLD')
+Hello WORLD!
+
+
+https://github.com/fpoli/python-c-api
+
+
+https://www.jianshu.com/p/cd28e8b0cce1
+python setup.py build
+cd build/...
+gcc -fPIC -shared mymath.c -o mymath.so -I/usr/include/python2.7/ -lpython2.7
