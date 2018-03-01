@@ -1,0 +1,15 @@
+1.
+gcc main.c stack.c maze.c -o main
+
+2.
+gcc -c main.c
+gcc -c stack.c
+gcc -c maze.c
+gcc main.o stack.o maze.o -o main
+
+3.
+Makefile
+make
+make clean
+:set noexpandtab 在Makefile中将空格转换成tab
+

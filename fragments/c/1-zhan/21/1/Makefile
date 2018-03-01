@@ -1,0 +1,11 @@
+main: main.o stack.o maze.o
+	gcc main.o stack.o maze.o -o main
+
+main.o: main.h stack.h maze.h
+stack.o: stack.h main.h
+maze.o: maze.h main.h
+
+clean:
+	-rm main *.o
+
+.PHONY: clean

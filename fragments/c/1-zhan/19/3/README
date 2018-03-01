@@ -1,0 +1,12 @@
+19.3 静态库
+
+gcc -c stack/stack.c stack/push.c stack/pop.c stack/is_empty.c
+ar rs libstack.a stack.o push.o pop.o is_empty.o
+# ar libstack.a stack.o push.o pop.o is_empty.o
+# ranlib libstack.a
+gcc main.c -L. -lstack -Istack -o main
+
+-L 选项告诉编译器去哪里找需要的库文件 -L.表示在当前目录找
+-lstack 选项告诉编译器要链接libstack库
+-I 选项告诉编译器去哪里找头文件
+

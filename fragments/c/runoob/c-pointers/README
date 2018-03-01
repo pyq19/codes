@@ -1,0 +1,11 @@
+http://www.runoob.com/cprogramming/c-pointers.html
+
+type *var-name;
+type 是指针的基类型  它必须是一个有效的 C 数据类型，var-name 是指针变量的名称
+
+以下是有效的指针声明
+int    *ip;    /* 一个整型的指针 */
+double *dp;    /* 一个 double 型的指针 */
+float  *fp;    /* 一个浮点型的指针 */
+char   *ch;     /* 一个字符型的指针 */
+
