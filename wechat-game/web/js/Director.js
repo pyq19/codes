@@ -28,6 +28,15 @@ export class Director {
         this.dataStore.get('pencils').push(new DownPencil(top));
     }
 
+    birdsEvent() {
+        for (let i = 0; i <= 2; i++) {
+            // 应该是保存当前小鸟y坐标
+            this.dataStore.get('birds').y[i] = this.dataStore.get('birds').birdsY[i];
+            // 之后会往上升
+        }
+        this.dataStore.get('birds').time = 0;
+    }
+
     run() {
         if (!this.isGameOver) {
             this.dataStore.get('background').draw();
