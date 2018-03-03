@@ -21,8 +21,8 @@ export class Director {
     }
 
     createPencil() {
-        const minTop = window.innerHeight / 8;
-        const maxTop = window.innerHeight / 2;
+        const minTop = DataStore.getInstance().canvas.height / 8;
+        const maxTop = DataStore.getInstance().canvas.height / 2;
         const top = minTop + Math.random() * (maxTop - minTop);
         this.dataStore.get('pencils').push(new UpPencil(top));
         this.dataStore.get('pencils').push(new DownPencil(top));
@@ -110,7 +110,7 @@ export class Director {
             }
 
             // 超过一半屏幕时创建新一组铅笔
-            if (pencils[0].x <= (window.innerWidth - pencils[0].width) / 2 && pencils.length === 2) {
+            if (pencils[0].x <= (DataStore.getInstance().canvas.width - pencils[0].width) / 2 && pencils.length === 2) {
                 this.createPencil();
             }
 

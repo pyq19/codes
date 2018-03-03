@@ -38,6 +38,7 @@ export class Main {
     }
 
     onResourceFirstLoaded(map) {
+        this.dataStore.canvas = this.canvas;
         this.dataStore.ctx = this.ctx;
         this.dataStore.res = map;
         this.init();

@@ -1,4 +1,5 @@
 import {Sprite} from "../base/Sprite.js";
+import {DataStore} from "../base/DataStore.js";
 
 export class Birds extends Sprite {
     constructor() {
@@ -20,9 +21,9 @@ export class Birds extends Sprite {
         this.clippingHeight = [24, 24, 24];
 
         // 使用
-        const birdX = window.innerWidth / 4;  // 初始x坐标
+        const birdX = DataStore.getInstance().canvas.width / 4;  // 初始x坐标
         this.birdsX = [birdX, birdX, birdX];
-        const birdY = window.innerHeight / 2;
+        const birdY = DataStore.getInstance().canvas.height / 2;
         this.birdsY = [birdY, birdY, birdY];
         const birdWidth = 34;
         this.birdsWidth = [birdWidth, birdWidth, birdWidth];

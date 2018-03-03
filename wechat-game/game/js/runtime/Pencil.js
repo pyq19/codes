@@ -1,4 +1,6 @@
 import {Sprite} from "../base/Sprite.js";
+import {DataStore} from "../base/DataStore.js";
+
 // import {Director} from "../Director.js";
 
 export class Pencil extends Sprite {
@@ -9,7 +11,7 @@ export class Pencil extends Sprite {
             image.width,
             image.height,
             // 摆放在刚好在右侧看不到的位置
-            window.innerWidth,
+            DataStore.getInstance().canvas.width,
             0,
             // 使用宽高
             image.width,
