@@ -37,7 +37,20 @@ export class Director {
         this.dataStore.get('birds').time = 0;
     }
 
+    // 判断小鸟碰撞
+    chech() {
+        const birds = this.dataStore.get('birds');
+        const land = this.dataStore.get('land');
+
+        if (birds.birdsY[0] + birds.birdsHeight[0] >= land.y) {
+            console.log('hihihi');
+            this.isGameOver = true;
+        }
+
+    }
+
     run() {
+        this.chech();
         if (!this.isGameOver) {
             this.dataStore.get('background').draw();
 
