@@ -10,7 +10,7 @@ import {Score} from "./js/player/Score.js";
 export class Main {
 
     constructor() {
-        this.canvas = document.getElementById('game_canvas');
+        this.canvas = wx.createCanvas();
         // console.log(this.canvas.width, this.canvas.height); // 357, 667
         this.ctx = this.canvas.getContext('2d');
         this.dataStore = DataStore.getInstance();
