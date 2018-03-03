@@ -37,14 +37,52 @@ export class Director {
         this.dataStore.get('birds').time = 0;
     }
 
+    // 是否和铅笔撞击
+    static isStrike(bird, pencil) {
+        let s = false;
+        if (bird.top > pencil.bottom || bird.bottom < pencil.top || bird.right < pencil.left || bird.left > pencil.right) {
+            s = true
+        }
+        return !s // ??
+    }
+
+
     // 判断小鸟碰撞
     chech() {
         const birds = this.dataStore.get('birds');
         const land = this.dataStore.get('land');
+        const pencils = this.dataStore.get('pencils');
 
         if (birds.birdsY[0] + birds.birdsHeight[0] >= land.y) {
             console.log('hihihi');
             this.isGameOver = true;
+            return;
+        }
+        // 小鸟的边框模型
+        const birdsBorder = {
+            top: birds.y[0],
+            bottom: birds.birdsY[0] + birds.birdsHeight[0],
+            left: birds.birdsX[0],
+            right: birds.birdsX[0] + birds.birdsWidth[0]
+        };
+
+        // 铅笔模型
+        const length = pencils.length;
+        for (let i = 0; i < length; i++) {
+            const pencil = pencils[i];
+            const pencilBorder = {
+                top: pencil.y,
+                bottom: pencil.y + pencil.height,
+                left: pencil.x,
+                right: pencil.x + pencil.width
+            };
+
+            // 检测那只铅笔是否和小鸟碰撞
+            if (Director.isStrike(birdsBorder, pencilBorder)) {
+                console.log('hit pencil');
+                this.isGameOver = true;
+                return;
+            }
         }
 
     }
