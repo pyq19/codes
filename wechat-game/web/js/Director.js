@@ -52,6 +52,7 @@ export class Director {
         const birds = this.dataStore.get('birds');
         const land = this.dataStore.get('land');
         const pencils = this.dataStore.get('pencils');
+        const score = this.dataStore.get('score');
 
         if (birds.birdsY[0] + birds.birdsHeight[0] >= land.y) {
             console.log('hihihi');
@@ -85,6 +86,12 @@ export class Director {
             }
         }
 
+        // 加分逻辑
+        if (birds.birdsX[0] > pencils[0].x + pencils[0].width && score.isScore) {
+            score.isScore = false; // 改为true时是在铅笔回收时，使得可以下次可以加分
+            score.scoreNumber++;
+        }
+
     }
 
     run() {
@@ -99,6 +106,7 @@ export class Director {
             if (pencils[0].x + pencils[0].width <= 0 && pencils.length === 4) {
                 pencils.shift(); // 第一个元素推出数组并把个数减一
                 pencils.shift();
+                this.dataStore.get('score').isScore = true; // 在铅笔回收时，使得可以加分
             }
 
             // 超过一半屏幕时创建新一组铅笔
@@ -111,6 +119,7 @@ export class Director {
             });
 
             this.dataStore.get('land').draw();
+            this.dataStore.get('score').draw();
             this.dataStore.get('birds').draw();
 
             let timer = requestAnimationFrame(() => this.run());
@@ -118,6 +127,7 @@ export class Director {
             // cancelAnimationFrame(this.dataStore.get('timer'));
         }
         else {
+            this.dataStore.get('startButton').draw();
             cancelAnimationFrame(this.dataStore.get('timer'));
             this.dataStore.destroy();
             console.log('game over');
