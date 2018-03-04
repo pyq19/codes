@@ -1,7 +1,10 @@
-// 2-1 变量定义
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+	"math/cmplx"
+)
 
 var (
 	aa = 3
@@ -34,6 +37,21 @@ func variableShorter() {
 	fmt.Println(a, b, c, s)
 }
 
+func euler() {
+	//fmt.Println(cmplx.Pow(math.E, 1i*math.Pi) + 1)
+	//(0+1.2246467991473532e-16i)
+	fmt.Printf("%.3f\n", cmplx.Exp(1i*math.Pi)+1)
+	//(0.000+0.000i)
+}
+
+func triangle() {
+	// 强制类型转换
+	var a, b int = 3, 4
+	var c int
+	c = int(math.Sqrt(float64(a*a + b*b)))
+	fmt.Println(c) // 5
+}
+
 func main() {
 	fmt.Println("hello world")
 	variableZeroValue()
@@ -41,4 +59,7 @@ func main() {
 	variableTypeDeduction()
 	variableShorter()
 	fmt.Println(aa, ss, bb)
+
+	euler()
+	triangle()
 }
