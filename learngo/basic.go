@@ -39,5 +39,6 @@ func main() {
 	variableZeroValue()
 	variableIntitialValue()
 	variableTypeDeduction()
+	variableShorter()
 	fmt.Println(aa, ss, bb)
 }
