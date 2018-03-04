@@ -81,4 +81,15 @@ func main() {
 	//s2=[5 6], len(s2)=2, cap(s2)=3
 	fmt.Println("arr =", arr)
 	//arr = [0 1 2 3 4 5 6 7]
+
+	s3 := append(s2, 10)
+	s4 := append(s3, 11)
+	s5 := append(s4, 12)
+	fmt.Println("s3, s4, s5 =", s3, s4, s5)
+	fmt.Println("arr =", arr)
+	//s3, s4, s5 = [5 6 10] [5 6 10 11] [5 6 10 11 12] // s4 and s5 no longer view arr.  s4 s5不再是arr的view
+	//arr = [0 1 2 3 4 5 6 10]
+	// 添加元素时如果超过cap, 系统会重新分配更大的底层数组
+	// 由于值传递的关系，必须接收append 的返回值
+	// s = append(s, val)
 }
