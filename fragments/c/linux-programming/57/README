@@ -1,0 +1,11 @@
+sockets
+
+57.2 stream sockets in the unix domain
+    ./server > b &
+    vi /tmp/us_xfr
+    cat *.c > a
+    ./client < a
+    diff a b
+
+57.3 Datagram sockets in the unix domain
+    TODO
