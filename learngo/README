@@ -1,1 +1,3 @@
 因gopath原因 卡在4-2<包和封装>
+
+打算把learngo 文件夹复制到$GOPATH/src/ 下，按着教程走完后再复制回来commit
