@@ -1,10 +1,10 @@
-package base
+package main
 
 import (
-	"fmt"
-	"strconv"
-	"os"
 	"bufio"
+	"fmt"
+	"os"
+	"strconv"
 )
 
 func convertToBin(n int) string {

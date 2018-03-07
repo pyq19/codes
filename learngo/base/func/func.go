@@ -1,10 +1,10 @@
-package base
+package main
 
 import (
 	"fmt"
+	"math"
 	"reflect"
 	"runtime"
-	"math"
 )
 
 func eval(a, b int, op string) (int, error) {

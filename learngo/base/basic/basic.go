@@ -1,4 +1,4 @@
-package base
+package main
 
 import (
 	"fmt"
@@ -65,7 +65,7 @@ func consts() {
 
 func enums() {
 	const (
-		cpp        = iota
+		cpp = iota
 		_
 		python
 		golang
@@ -73,7 +73,7 @@ func enums() {
 	)
 	// b, kb, mb, gb, tb, pb
 	const (
-		b  = 1 << (10 * iota) // 自增值枚举类型
+		b = 1 << (10 * iota) // 自增值枚举类型
 		kb
 		mb
 		gb
