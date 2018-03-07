@@ -43,3 +43,4 @@ dist
 .idea
 .vscode
 a.out
+__pycache__
