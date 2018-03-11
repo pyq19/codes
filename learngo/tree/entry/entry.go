@@ -85,4 +85,11 @@ func main() {
 	testSparse()
 	// true
 	// false
+
+	fmt.Println("-----")
+	nodeCount := 0
+	root.TraverseFunc(func(node *tree.Node) {
+		nodeCount++
+	})
+	fmt.Println("Node count:", nodeCount)
 }
