@@ -4,7 +4,9 @@ import (
 	"learngo/errhandling/filelistingserver/filelisting"
 	"log"
 	"net/http"
+	_ "net/http/pprof"
 	"os"
+	// go tool pprof http://localhost:8888/debug/pprof/profile
 )
 
 type appHandler func(writer http.ResponseWriter, request *http.Request) error
