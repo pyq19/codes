@@ -8,6 +8,8 @@ import (
 	"bufio"
 	"io"
 
+	"regexp"
+
 	"golang.org/x/net/html/charset"
 	"golang.org/x/text/encoding"
 	"golang.org/x/text/transform"
@@ -33,7 +35,8 @@ func main() {
 		panic(err)
 	}
 
-	fmt.Printf("%s\n", all)
+	printCityList(all)
+
 }
 
 func determineEncoding(r io.Reader) encoding.Encoding {
@@ -43,4 +46,13 @@ func determineEncoding(r io.Reader) encoding.Encoding {
 	}
 	e, _, _ := charset.DetermineEncoding(bytes, "")
 	return e
+}
+
+func printCityList(contents []byte) {
+	re := regexp.MustCompile(`<a href="http://www.zhenai.com/zhenghun/[0-9a-z]+"[^>]*>[^<]+</a>`)
+	matches := re.FindAll(contents, -1)
+	for _, m := range matches {
+		fmt.Printf("%s\n", m)
+	}
+	fmt.Printf("Matching found: %d\n", len(matches))
 }
