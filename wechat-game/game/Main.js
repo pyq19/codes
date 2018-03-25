@@ -6,6 +6,7 @@ import {Land} from "./js/runtime/Land.js";
 import {Birds} from "./js/player/Birds.js";
 import {StartButton} from "./js/player/StartButton.js";
 import {Score} from "./js/player/Score.js";
+import {ApiExamples} from "./js/ApiExamples.js";
 
 export class Main {
 
@@ -42,6 +43,9 @@ export class Main {
         this.dataStore.ctx = this.ctx;
         this.dataStore.res = map;
         this.init();
+
+        const exp = new ApiExamples();
+        exp.socketExample();
     }
 
     init() {
