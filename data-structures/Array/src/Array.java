@@ -40,11 +40,13 @@ public class Array<E> {
 
     // 在 index 个位置插入一个新元素 e
     public void add(int index, E e) {
-        if (size == data.length) {
-            throw new IllegalArgumentException("Add failed. Array is full.");
-        }
         if (index < 0 || index > size) {
             throw new IllegalArgumentException("Add failed. Required index >= 0 and index <= size.");
+        }
+
+        if (size == data.length) {
+            // 扩容
+            resize(2 * data.length);
         }
 
         // 每个元素往后挪一个位置，直到 index
@@ -100,6 +102,11 @@ public class Array<E> {
         }
         size--;
         data[size] = null; // loitering objects != memory leak
+
+        if (size == data.length / 2) {
+            resize(data.length / 2);
+        }
+
         return ret;
     }
 
@@ -135,5 +142,13 @@ public class Array<E> {
         }
         res.append("]");
         return res.toString();
+    }
+
+    private void resize(int newCapacity) {
+        E[] newData = (E[]) new Object[newCapacity];
+        for (int i = 0; i < size; i++) {
+            newData[i] = data[i];
+        }
+        data = newData;
     }
 }
