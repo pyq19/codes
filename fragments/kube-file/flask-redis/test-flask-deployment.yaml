@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  labels:
+    app: test-flask
+    tier: frontend
+spec:
+  type: NodePort 
+  ports:
+  - port: 8000
+  selector:
+    app: test-flask
+    tier: frontend
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  selector:
+    matchLabels:
+      app: test-flask
+      tier: frontend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: test-flask
+        tier: frontend
+    spec:
+      containers:
+      - name: test-flask
+        image: wrq1/test-flask
+        # resources:
+        #   requests:
+        #     cpu: 100m
+        #     memory: 100Mi
+        env:
+        - name: REDIS_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: test-flask-config
+              key: REDIS_HOST
+        - name: DEBUG
+          valueFrom:
+            configMapKeyRef:
+              name: test-flask-config
+              key: DEBUG
+        # envFrom:
+        # - configMapRef:
+        #   name: test-flask-config
+        # - secretRef:
+        #   name: env-secrets
+        ports:
+        - containerPort: 80
+        imagePullPolicy: Always
+      imagePullSecrets:
+      - name: regcred

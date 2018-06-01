@@ -1,0 +1,3 @@
+# kubectl create configmap test-flask-config --from-env-file=env-files/dev
+REDIS_HOST=redis
+DEBUG=1
