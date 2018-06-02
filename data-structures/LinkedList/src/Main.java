@@ -15,5 +15,17 @@ public class Main {
 //        3->2->1->0->NULL
 //        4->3->2->1->0->NULL
 //        4->3->666->2->1->0->NULL
+
+        linkedList.remove(2);
+        System.out.println(linkedList);
+
+        linkedList.removeFirst();
+        System.out.println(linkedList);
+
+        linkedList.removeLast();
+        System.out.println(linkedList);
+//        4->3->2->1->0->NULL
+//        3->2->1->0->NULL
+//        3->2->1->NULL
     }
 }

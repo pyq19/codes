@@ -121,6 +121,36 @@ public class LinkedList<E> {
         return false;
     }
 
+    // 从链表中删除 index (0-based) 位置的元素，返回删除的元素
+    // 在链表中不是一个常用的操作，练习用
+    public E remove(int index) {
+        if (index < 0 || index >= size) {
+            throw new IllegalArgumentException("Remove failed. Illegal index.");
+        }
+
+        Node prev = dummyHead;
+        for (int i = 0; i < index; i++) {
+            prev = prev.next;
+        }
+
+        Node ret = prev.next;
+        prev.next = ret.next;
+        ret.next = null;
+
+        size--;
+        return ret.e;
+    }
+
+    // 从链表中删除第一个元素，返回删除的元素
+    public E removeFirst() {
+        return remove(0);
+    }
+
+    // 从链表中删除最后一个元素，返回删除的元素
+    public E removeLast() {
+        return remove(size - 1);
+    }
+
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder();
