@@ -37,5 +37,10 @@ public class Main {
         ArrayQueue, time: 4.30962955 s
         LoopQueue, time: 0.017617984 s
          */
+
+        LinkedListQueue<Integer> linkedListQueue = new LinkedListQueue<Integer>();
+        double time3 = testQueue(linkedListQueue, opCount);
+        System.out.println("LinkedListQueue, time: " + time3 + " s");
+        //LinkedListQueue, time: 0.010209519 s
     }
 }
