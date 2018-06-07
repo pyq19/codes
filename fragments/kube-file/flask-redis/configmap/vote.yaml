@@ -1,0 +1,9 @@
+# https://www.schoolofdevops.com/blog/how-to-use-configmaps-in-kubernetes/
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vote
+  namespace: development
+data:
+  OPTION_A: EMACS
+  OPTION_B: VI
