@@ -54,5 +54,15 @@ public class Main {
          6
          5
          */
+
+        bst.preOrderNR();
+        /*
+          5
+          3
+          2
+          4
+          6
+          8
+         */
     }
 }
