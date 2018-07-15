@@ -44,3 +44,4 @@ dist
 .vscode
 a.out
 __pycache__
+play.go
