@@ -45,3 +45,4 @@ dist
 a.out
 __pycache__
 play.go
+debug
