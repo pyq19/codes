@@ -68,7 +68,6 @@ def pet(cls):
 class Parrot:
     pass
 # 还可用代理类拦截(__getattr__ __setattr__) 对目标进行访问，比如实现只读功能
-# TODO
 
 Parrot().dosomething() # dosomething!
 

@@ -101,7 +101,6 @@ def test(db):
 
 
 # contextmanager
-# TODO
 class GeneratorContextManager:
 
     def __init__(self, func):

@@ -20,5 +20,4 @@ main(int argc, char *argv[])
     char addrStr[ADDRSTRLEN];
     char host[NI_MAXHOST];
     char service[NI_MAXSERV];
-    // TODO ...
 }

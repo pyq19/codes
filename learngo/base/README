@@ -1,2 +1,2 @@
 go install ./... 就会在$GOPATH/bin 下生成basic branch func loop 四个可执行文件
-TODO ./... ?
+./... ?
