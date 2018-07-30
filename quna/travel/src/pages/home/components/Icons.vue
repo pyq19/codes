@@ -1,7 +1,6 @@
 <template>
   <div class="icons">
-    <!-- <swiper :options="swiperOption"> -->
-    <swiper>
+    <swiper :options="swiperOption">
       <swiper-slide v-for="(page, index) of pages"
                     :key="index">
         <div class="icon"
@@ -21,70 +20,20 @@
 <script>
 export default {
   name: 'HomeIcons',
+  props: {
+    list: Array
+  },
   data() {
     return {
-      iconList: [
-        {
-          id: '0001',
-          imgUrl:
-            'http://img1.qunarzz.com/piao/fusion/1803/95/f3dd6c383aeb3b02.png',
-          desc: '景点门票'
-        },
-        {
-          id: '0002',
-          imgUrl:
-            'http://img1.qunarzz.com/piao/fusion/1804/5a/13ceb38dcf262f02.png',
-          desc: '滑雪季'
-        },
-        {
-          id: '0003',
-          imgUrl:
-            'http://img1.qunarzz.com/piao/fusion/1804/ff/fdf170ee89594b02.png',
-          desc: '潘温泉'
-        },
-        {
-          id: '0004',
-          imgUrl:
-            'http://img1.qunarzz.com/piao/fusion/1803/76/eb88861d78fb9902.png',
-          desc: '动物植物'
-        },
-        {
-          id: '0005',
-          imgUrl:
-            'http://img1.qunarzz.com/piao/fusion/1803/6a/45f595250c73d102.png',
-          desc: '夏日玩水'
-        },
-        {
-          id: '0006',
-          imgUrl:
-            'http://img1.qunarzz.com/piao/fusion/1805/57/1e29afd06f881102.png',
-          desc: '普陀山'
-        },
-        {
-          id: '0007',
-          imgUrl:
-            'http://img1.qunarzz.com/piao/fusion/1803/b1/528a9e80403b8c02.png',
-          desc: '上海欢乐谷'
-        },
-        {
-          id: '0008',
-          imgUrl:
-            'http://img1.qunarzz.com/piao/fusion/1804/95/8d02011d149bdb02.png',
-          desc: '汽车票'
-        },
-        {
-          id: '0009',
-          imgUrl:
-            'http://img1.qunarzz.com/piao/fusion/1803/80/416c6ab3368d1f02.png',
-          desc: '全部玩乐'
-        }
-      ]
+      swiperOption: {
+        autoplay: false
+      }
     }
   },
   computed: {
     pages() {
       const pages = []
-      this.iconList.forEach((item, index) => {
+      this.list.forEach((item, index) => {
         const page = Math.floor(index / 8)
         if (!pages[page]) {
           pages[page] = []

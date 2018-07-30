@@ -3,7 +3,7 @@
     <div class="title">热销推荐</div>
     <ul>
       <li class="item border-bottom"
-          v-for="item of recommendList"
+          v-for="item of list"
           :key="item.id">
         <img class="item-img"
              :src="item.imgUrl" />
@@ -20,32 +20,8 @@
 <script>
 export default {
   name: 'HomeRecommend',
-  data() {
-    return {
-      recommendList: [
-        {
-          id: '0001',
-          imgUrl:
-            'http://img1.qunarzz.com/sight/p0/1506/30/7a528fae12c17e6e29d5d13a9d9813ee.water.jpg_200x200_e7f0d0ad.jpg',
-          title: '大连圣亚海洋世界',
-          desc: '浪漫的大连首站，浪漫的海洋主题乐园'
-        },
-        {
-          id: '0002',
-          imgUrl:
-            'http://img1.qunarzz.com/sight/p0/1506/30/7a528fae12c17e6e29d5d13a9d9813ee.water.jpg_200x200_e7f0d0ad.jpg',
-          title: '大连圣亚海洋世界',
-          desc: '浪漫的大连首站，浪漫的海洋主题乐园'
-        },
-        {
-          id: '0003',
-          imgUrl:
-            'http://img1.qunarzz.com/sight/p0/1506/30/7a528fae12c17e6e29d5d13a9d9813ee.water.jpg_200x200_e7f0d0ad.jpg',
-          title: '大连圣亚海洋世界',
-          desc: '浪漫的大连首站，浪漫的海洋主题乐园'
-        }
-      ]
-    }
+  props: {
+    list: Array
   }
 }
 </script>
