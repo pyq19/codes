@@ -12,7 +12,8 @@
       <ul>
         <li class="search-item border-bottom"
             v-for="item of list"
-            :key="item.id">{{item.name}}</li>
+            :key="item.id"
+            @click="handleCityClick(item.name)">{{item.name}}</li>
         <li class="search-item border-bottom"
             v-show="hasNoData">没有找到匹配数据</li>
       </ul>
@@ -62,6 +63,16 @@ export default {
         }
         this.list = result
       }, 100)
+    }
+  },
+  methods: {
+    handleCityClick(city) {
+      // 不通过 dispatch 因为可以跳过 actions 阶段
+      // this.$store.dispatch('changeCity', city)
+      // 直接 commit 给 mutations
+      this.$store.commit('changeCity', city)
+      // 使用 vue-route 跳转到 /
+      this.$router.push('/')
     }
   },
   mounted() {

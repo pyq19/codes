@@ -7,7 +7,7 @@
         <div class="button-list">
           <div class="button-wrapper">
             <div class="button">
-              北京
+              {{this.$store.state.city}}
             </div>
           </div>
         </div>
@@ -17,7 +17,8 @@
         <div class="button-list">
           <div class="button-wrapper"
                v-for="item of hot"
-               :key="item.id">
+               :key="item.id"
+               @click="handleCityClick(item.name)">
             <div class="button">{{item.name}}</div>
           </div>
         </div>
@@ -30,7 +31,8 @@
         <div class="item-list">
           <div class="item border-bottom"
                v-for="innerItem of item"
-               :key="innerItem.id">
+               :key="innerItem.id"
+               @click="handleCityClick(innerItem.name)">
             {{innerItem.name}}
           </div>
         </div>
@@ -48,8 +50,15 @@ export default {
     cities: Object,
     letter: String // 接收父组件传递过来的内容
   },
-  mounted() {
-    this.scroll = new Bscroll(this.$refs.wrapper)
+  methods: {
+    handleCityClick(city) {
+      // 不通过 dispatch 因为可以跳过 actions 阶段
+      // this.$store.dispatch('changeCity', city)
+      // 直接 commit 给 mutations
+      this.$store.commit('changeCity', city)
+      // 使用 vue-route 跳转到 /
+      this.$router.push('/')
+    }
   },
   // 监听器
   watch: {
@@ -60,6 +69,9 @@ export default {
         this.scroll.scrollToElement(element)
       }
     }
+  },
+  mounted() {
+    this.scroll = new Bscroll(this.$refs.wrapper)
   }
 }
 </script>
