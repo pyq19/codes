@@ -5,6 +5,8 @@ game.MyStates = {};
 game.MyStates.boot = {
     preload: function () {
         game.load.image('preload', 'assets/preloader.gif');
+        if (!game.device.desktop)
+            game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
     },
     create: function () {
         game.state.start('load');
