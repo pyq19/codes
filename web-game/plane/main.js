@@ -69,6 +69,17 @@ game.MyStates.play = {
     create: function () {
         var bg = game.add.tileSprite(0, 0, game.width, game.height, 'background');
         bg.autoScroll(0, 20);
+        this.myplane = game.add.sprite(100, 100, 'myplane');
+        this.myplane.animations.add('fly');
+        this.myplane.animations.play('fly', 12, true);
+        var tween = game.add.tween(this.myplane).to({ y: game.height - 40 }, 1000, Phaser.Easing.Sinusoidal.InOut, true);
+        tween.onComplete.add(this.onStart, this);
+    },
+    onStart: function () {
+        this.myplane.inputEnabled = true;
+        this.myplane.input.enableDrag();
+        var style = { font: '16px Arial', fill: '#ff0000' };
+        var text = game.add.text(0, 0, 'Score: 0', style);
     }
 }
 
