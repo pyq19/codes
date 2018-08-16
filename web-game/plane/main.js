@@ -47,17 +47,33 @@ game.MyStates.load = {
         });
     },
     create: function () {
-        game.state.start('start')
+        game.state.start('play')
     },
 }
 
 game.MyStates.start = {
     create: function () {
-        game.add.sprite(0, 0, 'background');
+        game.add.image(0, 0, 'background');
+        game.add.image(12, game.height - 10, 'copyright');
+        var myplane = game.add.sprite(100, 100, 'myplane')
+        myplane.animations.add('fly');
+        myplane.animations.play('fly', 12, true);
+        game.add.button(70, 200, 'startbutton', this.onStartClick, this, 1, 1, 0); // overFrame: 按住状态时鼠标划过时, outFrame: 鼠标离开时, downFrame: 鼠标按下时
     },
+    onStartClick: function () {
+        game.state.start('play');
+    }
+}
+
+game.MyStates.play = {
+    create: function () {
+        var bg = game.add.tileSprite(0, 0, game.width, game.height, 'background');
+        bg.autoScroll(0, 20);
+    }
 }
 
 game.state.add('boot', game.MyStates.boot);
 game.state.add('load', game.MyStates.load);
 game.state.add('start', game.MyStates.start);
+game.state.add('play', game.MyStates.play);
 game.state.start('boot');
