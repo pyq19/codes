@@ -75,6 +75,8 @@ game.MyStates.play = {
         this.myplane.animations.play('fly', 12, true);
         game.physics.arcade.enable(this.myplane);
         this.myplane.body.collideWorldBounds = true;
+        this.enemy = game.add.sprite(100, 10, 'enemy1');
+        game.physics.arcade.enable(this.enemy);
         var tween = game.add.tween(this.myplane).to({ y: game.height - 40 }, 1000, Phaser.Easing.Sinusoidal.InOut, true);
         tween.onComplete.add(this.onStart, this);
     },
@@ -85,13 +87,21 @@ game.MyStates.play = {
             game.physics.enable(myBullet, Phaser.Physics.ARCADE);
             myBullet.body.velocity.y = -200;
             this.lastBulletTime = now;
+            this.myBullets.add(myBullet);
         }
+        game.physics.arcade.overlap(this.myBullets, this.enemy, this.collisionHandler, null, this);
+    },
+    collisionHandler: function (enemy, bullet) {
+        enemy.kill();
+        bullet.kill();
     },
     onStart: function () {
         this.myplane.inputEnabled = true;
         this.myplane.input.enableDrag();
         this.myplane.myStartFire = true;
         this.lastBulletTime = 0;
+        this.myBullets = game.add.group();
+        this.myBullets.enableBody = true;
         var style = { font: '16px Arial', fill: '#ff0000' };
         var text = game.add.text(0, 0, 'Score: 0', style);
     }
