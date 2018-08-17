@@ -67,17 +67,31 @@ game.MyStates.start = {
 
 game.MyStates.play = {
     create: function () {
+        game.physics.startSystem(Phaser.Physics.ARCADE);
         var bg = game.add.tileSprite(0, 0, game.width, game.height, 'background');
         bg.autoScroll(0, 20);
         this.myplane = game.add.sprite(100, 100, 'myplane');
         this.myplane.animations.add('fly');
         this.myplane.animations.play('fly', 12, true);
+        game.physics.arcade.enable(this.myplane);
+        this.myplane.body.collideWorldBounds = true;
         var tween = game.add.tween(this.myplane).to({ y: game.height - 40 }, 1000, Phaser.Easing.Sinusoidal.InOut, true);
         tween.onComplete.add(this.onStart, this);
+    },
+    update: function () {
+        var now = new Date().getTime();
+        if (this.myplane.myStartFire && now - this.lastBulletTime > 500) {
+            var myBullet = game.add.sprite(this.myplane.x + 15, this.myplane.y - 5, 'mybullet');
+            game.physics.enable(myBullet, Phaser.Physics.ARCADE);
+            myBullet.body.velocity.y = -200;
+            this.lastBulletTime = now;
+        }
     },
     onStart: function () {
         this.myplane.inputEnabled = true;
         this.myplane.input.enableDrag();
+        this.myplane.myStartFire = true;
+        this.lastBulletTime = 0;
         var style = { font: '16px Arial', fill: '#ff0000' };
         var text = game.add.text(0, 0, 'Score: 0', style);
     }
