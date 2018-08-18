@@ -81,21 +81,10 @@ game.MyStates.play = {
         tween.onComplete.add(this.onStart, this);
     },
     update: function () {
-        var now = new Date().getTime();
-        if (this.myplane.myStartFire && now - this.myplane.lastBulletTime > 500) {
-            // var myBullet = game.add.sprite(this.myplane.x + 15, this.myplane.y - 5, 'mybullet');
-            var myBullet = this.myBullets.getFirstExists(false);
-            if (myBullet) {
-                game.physics.enable(myBullet, Phaser.Physics.ARCADE);
-                myBullet.reset(this.myplane.x + 15, this.myplane.y - 7);
-                myBullet.body.velocity.y = -200;
-                this.myplane.lastBulletTime = now;
-            } else {
-                console.log('no bullet, this should not happen');
-            }
+        if (this.myplane.myStartFire) {
+            this.myPlaneFire();
         }
         game.physics.arcade.overlap(this.myBullets, this.enemy, this.collisionHandler, null, this);
-        console.log(this.myBullets ? this.myBullets.length : 0);
     },
     collisionHandler: function (enemy, bullet) {
         enemy.kill();
@@ -108,12 +97,31 @@ game.MyStates.play = {
         this.myplane.lastBulletTime = 0;
 
         this.myBullets = game.add.group();
-        this.myBullets.createMultiple(5, 'mybullet');
-        this.myBullets.enableBody = true;
-        this.myBullets.setAll('outOfBoundsKill', true);
-        this.myBullets.setAll('checkWorldBounds', true);
+        // this.myBullets.createMultiple(5, 'mybullet');
+        // this.myBullets.enableBody = true;
+        // this.myBullets.setAll('outOfBoundsKill', true);
+        // this.myBullets.setAll('checkWorldBounds', true);
         var style = { font: '16px Arial', fill: '#ff0000' };
         var text = game.add.text(0, 0, 'Score: 0', style);
+    },
+    myPlaneFire: function () {
+        var now = new Date().getTime();
+        if (now - this.myplane.lastBulletTime > 500) {
+            // var myBullet = game.add.sprite(this.myplane.x + 15, this.myplane.y - 7, 'mybullet');
+            var myBullet = this.myBullets.getFirstExists(false);
+            if (myBullet) {
+                myBullet.reset(this.myplane.x + 15, this.myplane.y - 7);
+            } else {
+                myBullet = game.add.sprite(this.myplane.x + 15, this.myplane.y - 7, 'mybullet');
+                myBullet.outOfBoundsKill = true;
+                myBullet.checkWorldBounds = true;
+                this.myBullets.addChild(myBullet);
+                game.physics.enable(myBullet, Phaser.Physics.ARCADE);
+            }
+            myBullet.body.velocity.y = -200;
+            this.myplane.lastBulletTime = now;
+            // console.log(this.myBullets.length);
+        }
     }
 }
 
