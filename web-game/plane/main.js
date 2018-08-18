@@ -75,16 +75,15 @@ game.MyStates.play = {
         this.myplane.animations.play('fly', 12, true);
         game.physics.arcade.enable(this.myplane);
         this.myplane.body.collideWorldBounds = true;
-        this.enemy = game.add.sprite(100, 10, 'enemy1');
-        game.physics.arcade.enable(this.enemy);
         var tween = game.add.tween(this.myplane).to({ y: game.height - 40 }, 1000, Phaser.Easing.Sinusoidal.InOut, true);
         tween.onComplete.add(this.onStart, this);
     },
     update: function () {
         if (this.myplane.myStartFire) {
             this.myPlaneFire();
+            this.generateEnemy();
         }
-        game.physics.arcade.overlap(this.myBullets, this.enemy, this.collisionHandler, null, this);
+        // game.physics.arcade.overlap(this.myBullets, this.enemy, this.collisionHandler, null, this);
     },
     collisionHandler: function (enemy, bullet) {
         enemy.kill();
@@ -97,6 +96,10 @@ game.MyStates.play = {
         this.myplane.lastBulletTime = 0;
 
         this.myBullets = game.add.group();
+        this.enemys = game.add.group();
+        this.enemys.lastEnemyTime = 0;
+        this.enemyBullets = game.add.group();
+
         var style = { font: '16px Arial', fill: '#ff0000' };
         var text = game.add.text(0, 0, 'Score: 0', style);
     },
@@ -104,7 +107,7 @@ game.MyStates.play = {
         var now = new Date().getTime();
         if (now - this.myplane.lastBulletTime > 500) {
             // var myBullet = game.add.sprite(this.myplane.x + 15, this.myplane.y - 7, 'mybullet');
-            var myBullet = this.myBullets.getFirstExists(false);
+            var myBullet = this.myBullets.getFirstExists(false);// false 参数指代是否从未 kill 里拿
             if (myBullet) {
                 myBullet.reset(this.myplane.x + 15, this.myplane.y - 7);
             } else {
@@ -117,6 +120,23 @@ game.MyStates.play = {
             myBullet.body.velocity.y = -200;
             this.myplane.lastBulletTime = now;
             // console.log(this.myBullets.length);
+        }
+    },
+    generateEnemy: function () {
+        var now = new Date().getTime();
+        if (now - this.enemys.lastEnemyTime > 2000) {
+            var enemyIndex = game.rnd.integerInRange(1, 3);
+            var key = 'enemy' + (enemyIndex);
+            var size = game.cache.getImage(key).width;
+            var x = game.rnd.integerInRange(size / 2, game.width - size / 2);
+            var y = 0;
+            var enemy = this.enemys.getFirstExists(false, true, x, y, key);
+            // console.log(key, size, x, y);
+            enemy.anchor.setTo(0.5, 0.5);
+            game.physics.arcade.enable(enemy);
+            enemy.body.velocity.y = 200;
+
+            this.enemys.lastEnemyTime = now;
         }
     }
 }
