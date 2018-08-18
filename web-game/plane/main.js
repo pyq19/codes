@@ -137,12 +137,21 @@ game.MyStates.play = {
             enemy.checkWorldBounds = true;
             game.physics.arcade.enable(enemy);
             // enemy.body.velocity.y = 200;
+            enemy.body.setSize(size, size);
             enemy.body.velocity.y = 20;
 
             this.enemys.lastEnemyTime = now;
         }
         console.log(this.enemys.length);
     }
+    // ,
+    // render: function () {
+    //     if (this.enemys) {
+    //         this.enemys.forEachAlive(function (enemy) {
+    //             game.debug.body(enemy);
+    //         });
+    //     }
+    // }
 }
 
 game.state.add('boot', game.MyStates.boot);
