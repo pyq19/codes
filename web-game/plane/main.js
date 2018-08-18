@@ -97,10 +97,6 @@ game.MyStates.play = {
         this.myplane.lastBulletTime = 0;
 
         this.myBullets = game.add.group();
-        // this.myBullets.createMultiple(5, 'mybullet');
-        // this.myBullets.enableBody = true;
-        // this.myBullets.setAll('outOfBoundsKill', true);
-        // this.myBullets.setAll('checkWorldBounds', true);
         var style = { font: '16px Arial', fill: '#ff0000' };
         var text = game.add.text(0, 0, 'Score: 0', style);
     },
