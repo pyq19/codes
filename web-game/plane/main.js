@@ -82,6 +82,7 @@ game.MyStates.play = {
         if (this.myplane.myStartFire) {
             this.myPlaneFire();
             this.generateEnemy();
+            this.enemyFire();
             game.physics.arcade.overlap(this.myBullets, this.enemys, this.collisionHandler, null, this);
         }
     },
@@ -139,10 +140,27 @@ game.MyStates.play = {
             // enemy.body.velocity.y = 200;
             enemy.body.setSize(size, size);
             enemy.body.velocity.y = 20;
+            enemy.lastFireTime = 0;
 
             this.enemys.lastEnemyTime = now;
         }
-        console.log(this.enemys.length);
+        console.log("enemy : " + this.enemys.length);
+    },
+    enemyFire: function () {
+        var now = game.time.now;
+        this.enemys.forEachAlive(function (enemy) {
+            if (now - enemy.lastFireTime > 2000) {
+                var bullet = this.enemyBullets.getFirstExists(false, true, enemy.x, enemy.y, 'bullet');
+                bullet.anchor.setTo(0.5, 0.5);
+                bullet.outOfBoundsKill = true;
+                bullet.checkWorldBounds = true;
+                game.physics.arcade.enable(bullet);
+                bullet.body.velocity.y = 40;
+
+                enemy.lastFireTime = now;
+            }
+        }, this);
+        console.log("bullet : " + this.enemyBullets.length);
     }
     // ,
     // render: function () {
