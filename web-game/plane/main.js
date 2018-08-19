@@ -83,7 +83,10 @@ game.MyStates.play = {
             this.myPlaneFire();
             this.generateEnemy();
             this.enemyFire();
+            // 我方子弹 和 敌方飞机 碰撞检测
             game.physics.arcade.overlap(this.myBullets, this.enemys, this.hitEnemy, null, this);
+            // 敌方子弹 和 我方飞机 碰撞检测
+            game.physics.arcade.overlap(this.enemyBullets, this.myplane, this.hitPlane, null, this);
         }
     },
     hitEnemy: function (bullet, enemy) {
@@ -101,6 +104,17 @@ game.MyStates.play = {
         }
         bullet.kill();
     },
+    hitPlane: function (myplane, bullet) {
+        bullet.kill();
+        myplane.kill();
+        // TODO 爆炸效果 用对象池优化
+        var explode = game.add.sprite(myplane.x, myplane.y, 'myexplode');
+        var anim = explode.animations.add('explode');
+        anim.play(30, false, false); // 第三个参数 killOnComplete
+        anim.onComplete.addOnce(function () {
+            explode.destroy();
+        });
+    },
     onStart: function () {
         this.myplane.inputEnabled = true;
         this.myplane.input.enableDrag();
@@ -117,7 +131,7 @@ game.MyStates.play = {
     },
     myPlaneFire: function () {
         var now = new Date().getTime();
-        if (now - this.myplane.lastBulletTime > 500) {
+        if (this.myplane.alive && now - this.myplane.lastBulletTime > 500) {
             // var myBullet = game.add.sprite(this.myplane.x + 15, this.myplane.y - 7, 'mybullet');
             var myBullet = this.myBullets.getFirstExists(false);// false 参数指代是否从未 kill 里拿
             if (myBullet) {
