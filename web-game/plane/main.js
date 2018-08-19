@@ -83,11 +83,14 @@ game.MyStates.play = {
             this.myPlaneFire();
             this.generateEnemy();
             this.enemyFire();
-            game.physics.arcade.overlap(this.myBullets, this.enemys, this.collisionHandler, null, this);
+            game.physics.arcade.overlap(this.myBullets, this.enemys, this.hitEnemy, null, this);
         }
     },
-    collisionHandler: function (enemy, bullet) {
-        enemy.kill();
+    hitEnemy: function (bullet, enemy) {
+        enemy.life = enemy.life - 1;
+        if (enemy.life <= 0) {
+            enemy.kill();
+        }
         bullet.kill();
     },
     onStart: function () {
@@ -125,7 +128,7 @@ game.MyStates.play = {
     },
     generateEnemy: function () {
         var now = new Date().getTime();
-        if (now - this.enemys.lastEnemyTime > 2000) {
+        if (now - this.enemys.lastEnemyTime > 3000) {
             var enemyIndex = game.rnd.integerInRange(1, 3);
             var key = 'enemy' + (enemyIndex);
             var size = game.cache.getImage(key).width;
@@ -141,6 +144,21 @@ game.MyStates.play = {
             enemy.body.setSize(size, size);
             enemy.body.velocity.y = 20;
             enemy.lastFireTime = 0;
+            enemy.size = size;
+
+            if (enemyIndex == 1) {
+                enemy.bulletV = 40;
+                enemy.bulletTime = 6000;
+                enemy.life = 2;
+            } else if (enemyIndex == 2) {
+                enemy.bulletV = 80;
+                enemy.bulletTime = 4000;
+                enemy.life = 3;
+            } else if (enemyIndex == 3) {
+                enemy.bulletV = 120;
+                enemy.bulletTime = 2000;
+                enemy.life = 5;
+            }
 
             this.enemys.lastEnemyTime = now;
         }
@@ -149,13 +167,13 @@ game.MyStates.play = {
     enemyFire: function () {
         var now = game.time.now;
         this.enemys.forEachAlive(function (enemy) {
-            if (now - enemy.lastFireTime > 2000) {
-                var bullet = this.enemyBullets.getFirstExists(false, true, enemy.x, enemy.y, 'bullet');
+            if (now - enemy.lastFireTime > enemy.bulletTime) {
+                var bullet = this.enemyBullets.getFirstExists(false, true, enemy.x, enemy.y + enemy.size / 2, 'bullet');
                 bullet.anchor.setTo(0.5, 0.5);
                 bullet.outOfBoundsKill = true;
                 bullet.checkWorldBounds = true;
                 game.physics.arcade.enable(bullet);
-                bullet.body.velocity.y = 40;
+                bullet.body.velocity.y = enemy.bulletV;
 
                 enemy.lastFireTime = now;
             }
