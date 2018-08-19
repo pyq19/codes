@@ -90,6 +90,14 @@ game.MyStates.play = {
         enemy.life = enemy.life - 1;
         if (enemy.life <= 0) {
             enemy.kill();
+            // TODO 爆炸效果 用对象池优化
+            var explode = game.add.sprite(enemy.x, enemy.y, 'explode' + enemy.index);
+            explode.anchor.setTo(0.5, 0.5);
+            var anim = explode.animations.add('explode');
+            anim.play(30, false, false); // 第三个参数 killOnComplete
+            anim.onComplete.addOnce(function () {
+                explode.destroy();
+            });
         }
         bullet.kill();
     },
@@ -136,6 +144,7 @@ game.MyStates.play = {
             var y = 0;
             var enemy = this.enemys.getFirstExists(false, true, x, y, key);
             // console.log(key, size, x, y);
+            enemy.index = enemyIndex;
             enemy.anchor.setTo(0.5, 0.5);
             enemy.outOfBoundsKill = true;
             enemy.checkWorldBounds = true;
