@@ -1,6 +1,7 @@
 var game = new Phaser.Game(240, 400, Phaser.CANVAS, 'game')
 
 game.MyStates = {};
+var score = 0;
 
 game.MyStates.boot = {
     preload: function () {
@@ -47,7 +48,7 @@ game.MyStates.load = {
         });
     },
     create: function () {
-        game.state.start('play')
+        game.state.start('over');
     },
 }
 
@@ -113,6 +114,7 @@ game.MyStates.play = {
         anim.play(30, false, false); // 第三个参数 killOnComplete
         anim.onComplete.addOnce(function () {
             explode.destroy();
+            game.state.start('over');
         });
     },
     onStart: function () {
@@ -213,8 +215,32 @@ game.MyStates.play = {
     // }
 }
 
+game.MyStates.over = {
+    create: function () {
+        game.add.image(0, 0, 'background');
+        game.add.image(12, game.height - 16, 'copyright');
+        var myplane = game.add.sprite(100, 100, 'myplane');
+        myplane.animations.add('fly');
+        myplane.animations.play('fly', 12, true);
+
+        var style = { font: "bold 32px Arial", fill: "#ff0000", boundsAlignH: "center", boundsAlignV: "middle" };
+        this.text = game.add.text(0, 0, "Score: " + score, style);
+        this.text.setTextBounds(0, 0, game.width, game.height);
+
+        game.add.button(30, 300, 'replaybutton', this.onReplayClick, this, 0, 0, 1);
+        game.add.button(130, 300, 'sharebutton', this.onShareClick, this, 0, 0, 1);
+    },
+    onReplayClick: function () {
+        game.state.start('play');
+    },
+    onShareClick: function () {
+
+    }
+}
+
 game.state.add('boot', game.MyStates.boot);
 game.state.add('load', game.MyStates.load);
 game.state.add('start', game.MyStates.start);
 game.state.add('play', game.MyStates.play);
+game.state.add('over', game.MyStates.over);
 game.state.start('boot');
