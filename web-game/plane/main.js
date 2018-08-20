@@ -1,7 +1,7 @@
 var game = new Phaser.Game(240, 400, Phaser.CANVAS, 'game')
 
 game.MyStates = {};
-var score = 0;
+game.score = 0;
 
 game.MyStates.boot = {
     preload: function () {
@@ -101,7 +101,9 @@ game.MyStates.play = {
             anim.play(30, false, false); // 第三个参数 killOnComplete
             anim.onComplete.addOnce(function () {
                 explode.destroy();
-            });
+                game.score = game.score + enemy.score;
+                this.text.text = 'Score: ' + game.score;
+            }, this);
         }
         bullet.kill();
     },
@@ -129,7 +131,7 @@ game.MyStates.play = {
         this.enemyBullets = game.add.group();
 
         var style = { font: '16px Arial', fill: '#ff0000' };
-        var text = game.add.text(0, 0, 'Score: 0', style);
+        this.text = game.add.text(0, 0, 'Score: 0', style);
     },
     myPlaneFire: function () {
         var now = new Date().getTime();
@@ -175,14 +177,17 @@ game.MyStates.play = {
                 enemy.bulletV = 40;
                 enemy.bulletTime = 6000;
                 enemy.life = 2;
+                enemy.score = 20;
             } else if (enemyIndex == 2) {
                 enemy.bulletV = 80;
                 enemy.bulletTime = 4000;
                 enemy.life = 3;
+                enemy.score = 30;
             } else if (enemyIndex == 3) {
                 enemy.bulletV = 120;
                 enemy.bulletTime = 2000;
                 enemy.life = 5;
+                enemy.score = 50;
             }
 
             this.enemys.lastEnemyTime = now;
@@ -224,13 +229,14 @@ game.MyStates.over = {
         myplane.animations.play('fly', 12, true);
 
         var style = { font: "bold 32px Arial", fill: "#ff0000", boundsAlignH: "center", boundsAlignV: "middle" };
-        this.text = game.add.text(0, 0, "Score: " + score, style);
+        this.text = game.add.text(0, 0, "Score: " + game.score, style);
         this.text.setTextBounds(0, 0, game.width, game.height);
 
         game.add.button(30, 300, 'replaybutton', this.onReplayClick, this, 0, 0, 1);
         game.add.button(130, 300, 'sharebutton', this.onShareClick, this, 0, 0, 1);
     },
     onReplayClick: function () {
+        game.score = 0;
         game.state.start('play');
     },
     onShareClick: function () {
