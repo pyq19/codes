@@ -109,21 +109,25 @@ game.MyStates.play = {
     },
     hitPlane: function (myplane, bullet) {
         bullet.kill();
-        myplane.kill();
-        // TODO 爆炸效果 用对象池优化
-        var explode = game.add.sprite(myplane.x, myplane.y, 'myexplode');
-        var anim = explode.animations.add('explode');
-        anim.play(30, false, false); // 第三个参数 killOnComplete
-        anim.onComplete.addOnce(function () {
-            explode.destroy();
-            game.state.start('over');
-        });
+        myplane.life = myplane.life - 1;
+        if (myplane.life <= 0) {
+            myplane.kill();
+            // TODO 爆炸效果 用对象池优化
+            var explode = game.add.sprite(myplane.x, myplane.y, 'myexplode');
+            var anim = explode.animations.add('explode');
+            anim.play(30, false, false); // 第三个参数 killOnComplete
+            anim.onComplete.addOnce(function () {
+                explode.destroy();
+                game.state.start('over');
+            });
+        }
     },
     onStart: function () {
         this.myplane.inputEnabled = true;
         this.myplane.input.enableDrag();
         this.myplane.myStartFire = true;
         this.myplane.lastBulletTime = 0;
+        this.myplane.life = 2;
 
         this.myBullets = game.add.group();
         this.enemys = game.add.group();
