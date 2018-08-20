@@ -88,6 +88,27 @@ game.MyStates.play = {
             game.physics.arcade.overlap(this.myBullets, this.enemys, this.hitEnemy, null, this);
             // 敌方子弹 和 我方飞机 碰撞检测
             game.physics.arcade.overlap(this.enemyBullets, this.myplane, this.hitPlane, null, this);
+            // 我方飞机 与 奖牌 碰撞检测
+            game.physics.arcade.overlap(this.awards, this.myplane, this.getAward, null, this);
+            // 我方飞机 与 敌方飞机 碰撞检测
+            game.physics.arcade.overlap(this.enemys, this.myplane, this.crashEnemy, null, this);
+        }
+    },
+    crashEnemy: function (myplane, enemy) {
+        myplane.kill();
+        // TODO 爆炸效果封装
+        var explode = game.add.sprite(myplane.x, myplane.y, 'myexplode');
+        var anim = explode.animations.add('explode');
+        anim.play(30, false, false); // 第三个参数 killOnComplete
+        anim.onComplete.addOnce(function () {
+            explode.destroy();
+            game.state.start('over');
+        });
+    },
+    getAward: function (myplane, award) {
+        award.kill();
+        if (myplane.life < 3) {
+            myplane.life = myplane.life + 1;
         }
     },
     hitEnemy: function (bullet, enemy) {
