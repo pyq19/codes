@@ -346,7 +346,7 @@ game.MyStates.over = {
         this.normalback.stop();
     },
     onShareClick: function () {
-
+        document.getElementById('share').style.display = 'block';
     }
 }
 
@@ -356,3 +356,7 @@ game.state.add('start', game.MyStates.start);
 game.state.add('play', game.MyStates.play);
 game.state.add('over', game.MyStates.over);
 game.state.start('boot');
+
+var onCloseShare = function () {
+    document.getElementById('share').style.display = 'none';
+}
