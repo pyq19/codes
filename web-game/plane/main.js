@@ -127,7 +127,7 @@ game.MyStates.play = {
         this.myplane.input.enableDrag();
         this.myplane.myStartFire = true;
         this.myplane.lastBulletTime = 0;
-        this.myplane.life = 2;
+        this.myplane.life = 3;
 
         this.myBullets = game.add.group();
         this.enemys = game.add.group();
@@ -155,6 +155,22 @@ game.MyStates.play = {
         if (this.myplane.alive && now - this.myplane.lastBulletTime > 500) {
             var myBullet = getMyPlaneBullet.call(this); // !
             myBullet.body.velocity.y = -200;
+            if (this.myplane.life >= 2) {
+                var myBullet = getMyPlaneBullet.call(this); // !
+                myBullet.body.velocity.x = -20;
+                myBullet.body.velocity.y = -200;
+                var myBullet = getMyPlaneBullet.call(this); // !
+                myBullet.body.velocity.x = 20;
+                myBullet.body.velocity.y = -200;
+            }
+            if (this.myplane.life >= 3) {
+                var myBullet = getMyPlaneBullet.call(this); // !
+                myBullet.body.velocity.x = -40;
+                myBullet.body.velocity.y = -200;
+                var myBullet = getMyPlaneBullet.call(this); // !
+                myBullet.body.velocity.x = 40;
+                myBullet.body.velocity.y = -200;
+            }
             this.myplane.lastBulletTime = now;
         }
     },
