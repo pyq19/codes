@@ -48,7 +48,7 @@ game.MyStates.load = {
         });
     },
     create: function () {
-        game.state.start('over');
+        game.state.start('start');
     },
 }
 
@@ -60,9 +60,14 @@ game.MyStates.start = {
         myplane.animations.add('fly');
         myplane.animations.play('fly', 12, true);
         game.add.button(70, 200, 'startbutton', this.onStartClick, this, 1, 1, 0); // overFrame: 按住状态时鼠标划过时, outFrame: 鼠标离开时, downFrame: 鼠标按下时
+        this.normalback = game.add.audio('normalback', 0.2, true); // 第二个参数声音大小， 第三个是否循环播放
+        try {
+            this.normalback.play();
+        } catch (e) { }
     },
     onStartClick: function () {
         game.state.start('play');
+        this.normalback.stop();
     }
 }
 
@@ -78,6 +83,24 @@ game.MyStates.play = {
         this.myplane.body.collideWorldBounds = true;
         var tween = game.add.tween(this.myplane).to({ y: game.height - 40 }, 1000, Phaser.Easing.Sinusoidal.InOut, true);
         tween.onComplete.add(this.onStart, this);
+
+        // 背景音乐
+        this.playback = game.add.audio('playback', 0.2, true);
+        try {
+            this.playback.play();
+        } catch (e) { }
+        // 开火音乐
+        this.pi = game.add.audio('pi', 1, false);
+        // 打中敌人音乐
+        this.firesound = game.add.audio('fashe', 5, false);
+        // 爆炸音乐
+        this.crash1 = game.add.audio('crash1', 10, false);
+        this.crash2 = game.add.audio('crash2', 10, false);
+        this.crash3 = game.add.audio('crash3', 20, false);
+        // 挂了音乐
+        this.ao = game.add.audio('ao', 10, false);
+        // 接到了奖音乐
+        this.deng = game.add.audio('deng', 10, false);
     },
     update: function () {
         if (this.myplane.myStartFire) {
@@ -104,12 +127,18 @@ game.MyStates.play = {
             explode.destroy();
             game.state.start('over');
         });
+        try {
+            this.deng.play();
+        } catch (e) { }
     },
     getAward: function (myplane, award) {
         award.kill();
         if (myplane.life < 3) {
             myplane.life = myplane.life + 1;
         }
+        try {
+            this.deng.play();
+        } catch (e) { }
     },
     hitEnemy: function (bullet, enemy) {
         enemy.life = enemy.life - 1;
@@ -125,8 +154,14 @@ game.MyStates.play = {
                 game.score = game.score + enemy.score;
                 this.text.text = 'Score: ' + game.score;
             }, this);
+            try {
+                this['crash' + enemy.index].play();
+            } catch (e) { }
         }
         bullet.kill();
+        try {
+            this.firesound.play();
+        } catch (e) { }
     },
     hitPlane: function (myplane, bullet) {
         bullet.kill();
@@ -140,7 +175,11 @@ game.MyStates.play = {
             anim.onComplete.addOnce(function () {
                 explode.destroy();
                 game.state.start('over');
-            });
+                this.normalback.stop();
+            }, this);
+            try {
+                this.ao.play();
+            } catch (e) { }
         }
     },
     onStart: function () {
@@ -160,7 +199,7 @@ game.MyStates.play = {
 
         this.awards = game.add.group();
         // 每隔30秒生成一个奖牌
-        game.time.events.loop(Phaser.Timer.SECOND * 1, this.generateAward, this);
+        game.time.events.loop(Phaser.Timer.SECOND * 30, this.generateAward, this);
     },
     generateAward: function () {
         var awardSize = game.cache.getImage('award');
@@ -208,6 +247,9 @@ game.MyStates.play = {
                 myBullet.body.velocity.y = -200;
             }
             this.myplane.lastBulletTime = now;
+            try {
+                this.pi.play();
+            } catch (e) { }
         }
     },
     generateEnemy: function () {
@@ -292,10 +334,16 @@ game.MyStates.over = {
 
         game.add.button(30, 300, 'replaybutton', this.onReplayClick, this, 0, 0, 1);
         game.add.button(130, 300, 'sharebutton', this.onShareClick, this, 0, 0, 1);
+
+        this.normalback = game.add.audio('normalback', 0.2, true); // 第二个参数声音大小， 第三个是否循环播放
+        try {
+            this.normalback.play();
+        } catch (e) { }
     },
     onReplayClick: function () {
         game.score = 0;
         game.state.start('play');
+        this.normalback.stop();
     },
     onShareClick: function () {
 
