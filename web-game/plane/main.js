@@ -175,7 +175,7 @@ game.MyStates.play = {
             anim.onComplete.addOnce(function () {
                 explode.destroy();
                 game.state.start('over');
-                this.normalback.stop();
+                this.playback.stop();
             }, this);
             try {
                 this.ao.play();
