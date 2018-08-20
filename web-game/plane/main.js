@@ -136,6 +136,21 @@ game.MyStates.play = {
 
         var style = { font: '16px Arial', fill: '#ff0000' };
         this.text = game.add.text(0, 0, 'Score: 0', style);
+
+        this.awards = game.add.group();
+        // 每隔30秒生成一个奖牌
+        game.time.events.loop(Phaser.Timer.SECOND * 1, this.generateAward, this);
+    },
+    generateAward: function () {
+        var awardSize = game.cache.getImage('award');
+        var x = game.rnd.integerInRange(0, game.width - awardSize.width);
+        var y = -awardSize.height;
+        var award = this.awards.getFirstExists(false, true, x, y, 'award');
+        award.outOfBoundsKill = true;
+        award.checkWorldBounds = true;
+        game.physics.arcade.enable(award);
+        award.body.velocity.y = 600;
+        console.log(this.awards.length);
     },
     myPlaneFire: function () {
         var getMyPlaneBullet = function () {
