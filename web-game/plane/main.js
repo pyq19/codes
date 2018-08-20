@@ -127,7 +127,7 @@ game.MyStates.play = {
         this.myplane.input.enableDrag();
         this.myplane.myStartFire = true;
         this.myplane.lastBulletTime = 0;
-        this.myplane.life = 3;
+        this.myplane.life = 2;
 
         this.myBullets = game.add.group();
         this.enemys = game.add.group();
@@ -214,7 +214,7 @@ game.MyStates.play = {
 
             this.enemys.lastEnemyTime = now;
         }
-        console.log("enemy : " + this.enemys.length);
+        // console.log("enemy : " + this.enemys.length);
     },
     enemyFire: function () {
         var now = game.time.now;
@@ -230,7 +230,7 @@ game.MyStates.play = {
                 enemy.lastFireTime = now;
             }
         }, this);
-        console.log("bullet : " + this.enemyBullets.length);
+        // console.log("bullet : " + this.enemyBullets.length);
     }
     // ,
     // render: function () {
