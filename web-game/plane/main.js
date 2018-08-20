@@ -138,9 +138,7 @@ game.MyStates.play = {
         this.text = game.add.text(0, 0, 'Score: 0', style);
     },
     myPlaneFire: function () {
-        var now = new Date().getTime();
-        if (this.myplane.alive && now - this.myplane.lastBulletTime > 500) {
-            // var myBullet = game.add.sprite(this.myplane.x + 15, this.myplane.y - 7, 'mybullet');
+        var getMyPlaneBullet = function () {
             var myBullet = this.myBullets.getFirstExists(false);// false 参数指代是否从未 kill 里拿
             if (myBullet) {
                 myBullet.reset(this.myplane.x + 15, this.myplane.y - 7);
@@ -151,9 +149,13 @@ game.MyStates.play = {
                 this.myBullets.addChild(myBullet);
                 game.physics.enable(myBullet, Phaser.Physics.ARCADE);
             }
+            return myBullet;
+        }
+        var now = new Date().getTime();
+        if (this.myplane.alive && now - this.myplane.lastBulletTime > 500) {
+            var myBullet = getMyPlaneBullet.call(this); // !
             myBullet.body.velocity.y = -200;
             this.myplane.lastBulletTime = now;
-            // console.log(this.myBullets.length);
         }
     },
     generateEnemy: function () {
