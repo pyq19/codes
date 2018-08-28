@@ -18,6 +18,23 @@ int *generateRandomArray(int n, int rangeL, int rangeR)
     return arr;
 }
 
+// 生成一个【近乎有序】的数组
+int *generateNearlyOrderedArray(int n, int swapTimes)
+{
+    int *arr = new int[n];
+    for (int i = 0; i < n; i++)
+        arr[i] = i;
+
+    srand(time(NULL));
+    for (int i = 0; i < swapTimes; i++)
+    {
+        int posx = rand() % n;
+        int posy = rand() % n;
+        swap(arr[posx], arr[posy]);
+    }
+    return arr;
+}
+
 template <typename T>
 void printArray(T arr[], int n)
 {
