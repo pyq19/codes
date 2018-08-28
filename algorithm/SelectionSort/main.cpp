@@ -20,31 +20,12 @@ void selectionSort(T arr[], int n)
 
 int main()
 {
-    /*
-    float b[4] = {4.4, 3.3, 2.2, 1.1};
-    selectionSort(b, 4);
-    for (int i = 0; i < 4; i++)
-        cout << b[i] << " ";
-    cout << endl;
-
-    string c[4] = {"D", "C", "B", "A"};
-    selectionSort(c, 4);
-    for (int i = 0; i < 4; i++)
-        cout << c[i] << " ";
-    cout << endl;
-
-    Student d[4] = {{"D", 90}, {"C", 100}, {"B", 95}, {"A", 95}};
-    selectionSort(d, 4);
-    for (int i = 0; i < 4; i++)
-        cout << d[i];
-    cout << endl;
-    */
-
-    int n = 10000;
+    int n = 100000;
     int *arr = SortTestHelper::generateRandomArray(n, 0, n);
-    selectionSort(arr, n);
-    SortTestHelper::printArray(arr, n);
+    // selectionSort(arr, n);
+    // SortTestHelper::printArray(arr, n);
 
+    SortTestHelper::testSort("Selection Sort", selectionSort, arr, n);
     delete[] arr;
 
     return 0;
