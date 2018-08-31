@@ -9,6 +9,7 @@ using namespace std;
 template <typename T>
 int __partition(T arr[], int l, int r)
 {
+    swap(arr[l], arr[rand() % (r - l + 1) + l]); // 生成从 l 到 r 前闭后闭的索引
     T v = arr[l];
 
     // arr[l+1...j] < v; arr[j+1...i) > v
@@ -40,6 +41,7 @@ void __quickSort(T arr[], int l, int r)
 template <typename T>
 void quickSort(T arr[], int n)
 {
+    srand(time(NULL));
     __quickSort(arr, 0, n - 1);
 }
 
