@@ -50,6 +50,6 @@ CMakeFiles
 cmake_install.cmake
 CMakeCache.txt
 Makefile
-main
+algorithm/**/main
 app.properties
 **/target/**
