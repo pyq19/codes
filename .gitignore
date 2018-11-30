@@ -54,3 +54,4 @@ algorithm/**/main
 app.properties
 **/target/**
 merchants/src/main/resources/application.yml
+merchants/src/test/resources/application.yml
