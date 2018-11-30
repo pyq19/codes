@@ -23,7 +23,7 @@
 # Logs and databases #
 ######################
 *.log
-*.sql
+# *.sql
 *.sqlite
 
 # OS generated files #
@@ -53,3 +53,4 @@ Makefile
 algorithm/**/main
 app.properties
 **/target/**
+merchants/src/main/resources/application.yml
