@@ -1,4 +1,4 @@
-package com.impyq.passbook.passbook;
+package com.impyq.passbook;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
