@@ -55,3 +55,5 @@ app.properties
 **/target/**
 merchants/src/main/resources/application.yml
 merchants/src/test/resources/application.yml
+passbook/src/main/resources/application.*
+passbook/src/test/resources/application.*
