@@ -2,6 +2,7 @@ package com.impyq.passbook.service.impl;
 
 import com.impyq.passbook.constant.ErrorCode;
 import com.impyq.passbook.dao.MerchantsDao;
+import com.impyq.passbook.entity.Merchants;
 import com.impyq.passbook.service.IMerchantsServ;
 import com.impyq.passbook.vo.CreateMerchantsRequest;
 import com.impyq.passbook.vo.CreateMerchantsResponse;
@@ -44,7 +45,14 @@ public class MerchantsServImpl implements IMerchantsServ {
 
     @Override
     public Response buildMerchantsInfoById(Integer id) {
-        return null;
+        Response response = new Response();
+        Merchants merchants = merchantsDao.findById(id);
+        if (null == merchants) {
+            response.setErrorCode(ErrorCode.MERCHANTS_NOT_EXIST.getCode());
+            response.setErrorMsg(ErrorCode.MERCHANTS_NOT_EXIST.getDesc());
+        }
+        response.setData(merchants);
+        return response;
     }
 
     @Override
