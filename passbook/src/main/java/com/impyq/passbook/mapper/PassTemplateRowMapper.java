@@ -7,10 +7,7 @@ import org.apache.commons.lang.time.DateUtils;
 import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.util.Bytes;
 
-/**
- * <h1>HBase PassTemplate Row To PassTemplate Object</h1>
- * Created by Qinyi.
- */
+// HBase PassTemplate Row To PassTemplate Object
 public class PassTemplateRowMapper implements RowMapper<PassTemplate> {
 
     private static byte[] FAMILY_B = Constants.PassTemplateTable.FAMILY_B.getBytes();
