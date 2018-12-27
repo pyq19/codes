@@ -14,4 +14,10 @@
           p:username="${username}"
           p:password="${password}"/>
 
+    <bean id="myDataSource" class="com.impyq.demo5.MyDataSource"
+          p:driverClassName="${driverClassName}"
+          p:url="${url}"
+          p:username="${username}"
+          p:password="${password}"/>
+
 </beans>

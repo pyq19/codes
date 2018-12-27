@@ -11,5 +11,10 @@ public class Main {
         System.out.println(basicDataSource.getDriverClassName());
         System.out.println(basicDataSource.getUsername());
         System.out.println(basicDataSource.getPassword());
+
+        System.out.println("-----------");
+
+        MyDataSource myDataSource = (MyDataSource) context.getBean("myDataSource");
+        System.out.println(myDataSource.toString());
     }
 }
