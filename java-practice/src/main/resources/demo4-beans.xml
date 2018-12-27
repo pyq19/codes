@@ -14,4 +14,10 @@
         <constructor-arg type="double"><value>3333333</value></constructor-arg>
     </bean>
 
+    <bean id="car3" class="com.impyq.demo4.Car">
+        <constructor-arg index="0" value="111" />
+        <constructor-arg index="1" value="Benz" />
+        <constructor-arg index="2" value="666666" />
+    </bean>
+
 </beans>
