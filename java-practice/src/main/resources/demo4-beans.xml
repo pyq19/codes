@@ -8,4 +8,10 @@
         <property name="price"><value>200000</value></property>
     </bean>
 
+    <bean id="car2" class="com.impyq.demo4.Car">
+        <constructor-arg type="int"><value>333</value></constructor-arg>
+        <constructor-arg type="java.lang.String"><value>lexus</value></constructor-arg>
+        <constructor-arg type="double"><value>3333333</value></constructor-arg>
+    </bean>
+
 </beans>

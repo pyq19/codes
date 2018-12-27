@@ -8,5 +8,8 @@ public class Main {
         ApplicationContext context = new ClassPathXmlApplicationContext("demo4-beans.xml");
         Car car = (Car) context.getBean("car");
         System.out.println(car.toString());
+
+        Car car2 = (Car) context.getBean("car2");
+        System.out.println(car2.toString());
     }
 }
