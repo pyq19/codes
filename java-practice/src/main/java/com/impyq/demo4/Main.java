@@ -14,5 +14,8 @@ public class Main {
 
         Car car3 = (Car) context.getBean("car3");
         System.out.println(car3.toString());
+
+        Boss boss = (Boss) context.getBean("boss");
+        System.out.println(boss.toString());
     }
 }

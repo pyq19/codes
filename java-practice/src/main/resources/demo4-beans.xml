@@ -20,4 +20,9 @@
         <constructor-arg index="2" value="666666" />
     </bean>
 
+    <bean id="boss" class="com.impyq.demo4.Boss">
+        <constructor-arg type="java.lang.String" index="0" value="pyq" />
+        <constructor-arg type="com.impyq.demo4.Car" index="1" ref="car3" />
+    </bean>
+
 </beans>
