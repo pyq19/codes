@@ -58,3 +58,7 @@ merchants/src/test/resources/application.yml
 passbook/src/main/resources/application.*
 passbook/src/test/resources/application.*
 *.iml
+.project
+*.prefs
+.classpath
+.factorypath
