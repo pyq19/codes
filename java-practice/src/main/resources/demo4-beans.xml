@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="car" class="com.impyq.demo4.Car">
+        <property name="maxSpeed"><value>200</value></property>
+        <property name="brand"><value>lexus</value></property>
+        <property name="price"><value>200000</value></property>
+    </bean>
+
+    <bean id="car2" class="com.impyq.demo4.Car">
+        <constructor-arg type="int"><value>333</value></constructor-arg>
+        <constructor-arg type="java.lang.String"><value>lexus</value></constructor-arg>
+        <constructor-arg type="double"><value>3333333</value></constructor-arg>
+    </bean>
+
+    <bean id="car3" class="com.impyq.demo4.Car">
+        <constructor-arg index="0" value="111" />
+        <constructor-arg index="1" value="Benz" />
+        <constructor-arg index="2" value="666666" />
+    </bean>
+
+    <bean id="boss" class="com.impyq.demo4.Boss">
+        <constructor-arg type="java.lang.String" index="0" value="pyq" />
+        <constructor-arg type="com.impyq.demo4.Car" index="1" ref="car3" />
+    </bean>
+
+</beans>
