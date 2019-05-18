@@ -1,5 +1,11 @@
 {
   "pages": [
     "pages/classic/classic"
-  ]
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#FFFF00",
+    "navigationBarTitleText": "测试标题",
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "default"
+  }
 }
