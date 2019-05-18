@@ -6,6 +6,8 @@
     "navigationBarBackgroundColor": "#FFFF00",
     "navigationBarTitleText": "测试标题",
     "navigationBarTextStyle": "black",
-    "navigationStyle": "default"
+    "navigationStyle": "default",
+    "backgroundColor": "#D80000",
+    "enablePullDownRefresh": true
   }
 }

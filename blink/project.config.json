@@ -15,6 +15,8 @@
 	"appid": "wx03b2c6855cfcf598",
 	"projectname": "blink",
 	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,
