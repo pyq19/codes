@@ -44,14 +44,13 @@ def main():
         ['mysql', '-uroot', '-proot', '-h127.0.0.1', 'master', '-e', f'show create table {table_name}\G'],
         stdout=subprocess.PIPE).stdout.decode('utf-8')
     print(string)
-    res = re.findall(r'`\w+`', string)
-    res = res[1:]
-    res = [r[1:-1] for r in res]
+    res = re.findall(r'  `\w+`', string)
+    res = [r[3:-1] for r in res]
     seen = set()
     field_names = [x for x in res if x not in seen and not seen.add(x)]
     print(field_names)
 
-    res = re.findall(r'` [\w,\(\)]+ ', string)
+    res = re.findall(r'` [\w,\(\)]{2,}', string)
     field_types = [_field_type(r) for r in res]
     print(field_types)
 
