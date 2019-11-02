@@ -22,6 +22,23 @@ private:
     }
   }
 
+  // 尝试将索引为 k 这个元素向下移动
+  void shiftDown(int k) {
+    // 在一个完全二叉树中, 当前 k 节点有子节点
+    while (2 * k <= count) {
+      int j = 2 * k; // j 为子节点. 在此轮循环中, data[k] 和 data[j] 交换位置
+      if (j + 1 <= count && data[j + 1] > data[j]) {
+        j += 1; // j 为 k 右子节点
+      }
+      if (data[k] >= data[j]) {
+        // 父节点 >= 两个子节点, 则不需要交换
+        break;
+      }
+      swap(data[k], data[j]);
+      k = j;
+    }
+  }
+
   void putNumberInLine(int num, string &line, int index_cur_level,
                        int cur_tree_width, bool isLeft) {
 
@@ -66,12 +83,23 @@ public:
 
   bool isEmpty() { return count == 0; }
 
+  // 往堆中添加一个元素
   void insert(Item item) {
     assert(count + 1 <= capacity);
 
     data[count + 1] = item; // 堆中数组索引从 1 开始
     count++;
     shiftUp(count);
+  }
+
+  // 将堆中最大的元素取出
+  Item extractMax() {
+    assert(count > 0);
+    Item ret = data[1];
+    swap(data[1], data[count]); // 将最大的元素与最后一个元素交换
+    count--;
+    shiftDown(1);
+    return ret;
   }
 
   // 以树状打印整个堆结构
@@ -150,7 +178,12 @@ int main() {
     maxheap.insert(n);
   }
 
-  maxheap.testPrint();
+  // maxheap.testPrint();
+
+  while (!maxheap.isEmpty()) {
+    cout << maxheap.extractMax() << " ";
+  }
+  cout << endl;
 
   return 0;
 }
