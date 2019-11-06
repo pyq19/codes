@@ -34,9 +34,9 @@ class Solution(object):
         for i, a in enumerate(nums[:-2]):
             seen = set()
             for b in nums[i+1:]:
-                c = -(a+b)  # 还是不理解
-                if b not in seen:  # 还是不理解
-                    seen.add(c)  # 还是不理解
+                c = -(a+b)  # TODO 还是不理解
+                if b not in seen:  # TODO 还是不理解
+                    seen.add(c)  # TODO 还是不理解
                 else:
                     res.add((a, b, c))
         return map(list, res)
