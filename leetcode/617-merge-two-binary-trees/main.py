@@ -15,4 +15,12 @@ class TreeNode:
 
 class Solution:
     def mergeTrees(self, t1: TreeNode, t2: TreeNode) -> TreeNode:
-        pass
+        if t1 is None:
+            return t2
+        if t2 is None:
+            return t1
+        res = TreeNode(None)
+        res.val = t1.val + t2.val
+        res.left = self.mergeTrees(t1.left, t2.left)
+        res.right = self.mergeTrees(t1.right, t2.right)
+        return res
