@@ -11,7 +11,27 @@ class ListNode:
 
 class Solution:
     def reverseList(self, head: ListNode) -> ListNode:
-        """TODO 迭代 iteratively"""
+        """迭代 iteratively"""
+        cur = head
+        pre = None
+        while cur:
+            nxt = cur.next
+            # 1 -> 2 -> 3 -> 4 -> 5 -> NULL
+            # cur  nxt
+
+            cur.next = pre
+            # None <- 1   2 -> 3 -> 4 -> 5 -> NULL
+            #   pre  cur nxt
+
+            pre = cur
+            # None <- 1    2 -> 3 -> 4 -> 5 -> NULL
+            #    (pre)cur nxt
+
+            cur = nxt
+            # None <- 1    2 -> 3 -> 4 -> 5 -> NULL
+            #        pre (cur)nxt
+
+        return pre
 
 
 class Solution:
