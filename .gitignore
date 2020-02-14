@@ -65,3 +65,4 @@ passbook/src/test/resources/application.*
 *.out
 *.gch
 main
+.vscode
