@@ -64,3 +64,4 @@ passbook/src/test/resources/application.*
 .factorypath
 *.out
 *.gch
+main
