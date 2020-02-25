@@ -66,3 +66,5 @@ passbook/src/test/resources/application.*
 *.gch
 main
 .vscode
+codes.code-workspace
+
